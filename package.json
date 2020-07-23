@@ -1,5 +1,5 @@
 {
-  "name": "node-module-template",
+  "name": "memoize-concurrent",
   "version": "0.0.0",
   "description": "Description",
   "main": "dist/cjs/index.js",
@@ -11,16 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjmehta/node-module-template.git"
+    "url": "git+https://github.com/tjmehta/memoize-concurrent.git"
   },
   "keywords": [
+    "memo",
+    "memoize",
+    "concurrent",
+    "simultaneous",
+    "deduplicate",
+    "one at a time"
   ],
   "author": "Tejesh Mehta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tjmehta/node-module-template/issues"
+    "url": "https://github.com/tjmehta/memoize-concurrent/issues"
   },
-  "homepage": "https://github.com/tjmehta/node-module-template#readme",
+  "homepage": "https://github.com/tjmehta/memoize-concurrent#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
@@ -30,5 +36,9 @@
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "mem": "^6.1.0",
+    "mimic-fn": "^3.0.0"
   }
 }
