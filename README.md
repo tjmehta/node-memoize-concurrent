@@ -36,16 +36,6 @@ const promise3 = memoizedAdd('http://localhost') // hits server
 console.log(promise1 === promise3) // false
 ```
 
-```js
-import memo from 'memoize-concurrent'
-
-const memoizedFetch = memo(fetch, {
-  maxAge: 10, // maxAge of value in cache
-  cacheKey: (args) => args[0], // function to compute cache key
-  cache: new Map(), // provide your own cache
-})
-```
-
 #### Uses [mem](https://github.com/sindresorhus/mem) for Memoization
 
 memoizeConcurrent uses [mem](https://github.com/sindresorhus/mem) under the hood and supports the same options
