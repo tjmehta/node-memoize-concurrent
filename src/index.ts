@@ -13,10 +13,9 @@ export default function memoizeConcurrent<
   fn: FunctionToMemoize<ArgumentsType, Promise<ResolveType>>,
   opts?: mem.Options<ArgumentsType, CacheKeyType, Promise<ResolveType>>,
 ): FunctionToMemoize<ArgumentsType, Promise<ResolveType>> {
-  const cache = new Map<
-    CacheKeyType,
-    { data: Promise<ResolveType>; maxAge: number }
-  >()
+  const cache =
+    opts?.cache ||
+    new Map<CacheKeyType, { data: Promise<ResolveType>; maxAge: number }>()
   const cacheKey =
     opts?.cacheKey ||
     ((args: ArgumentsType): CacheKeyType => args[0] as CacheKeyType)
@@ -27,9 +26,9 @@ export default function memoizeConcurrent<
     CacheKeyType,
     FunctionToMemoize<ArgumentsType, Promise<ResolveType>>
   >(
-    mimic((...args: ArgumentsType): Promise<ResolveType> => {
+    mimic(async (...args: ArgumentsType): Promise<ResolveType> => {
       try {
-        return fn(...args)
+        return await fn(...args)
       } finally {
         const key = cacheKey(args)
         cache.delete(key)
