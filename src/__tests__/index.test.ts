@@ -1,3 +1,4 @@
+import AbortController from 'fast-abort-controller'
 import memo from '../index'
 
 describe('memoizeConcurrent', () => {
@@ -76,6 +77,46 @@ describe('memoizeConcurrent', () => {
         const result2 = memoizedFn()
         expect(result1).not.toBe(result2)
       })
+    })
+  })
+
+  describe('abort signal functionality', () => {
+    it('should abort each promise independently, and cancel inner task if all are aborted', async () => {
+      const cacheKey = () => 'key'
+      const handleAbort = jest.fn()
+      let innerSignal: AbortSignal
+      const fn: (opts: { signal: AbortSignal }) => Promise<void> = ({
+        signal,
+      }) => {
+        innerSignal = signal
+        signal.addEventListener('abort', handleAbort)
+        return new Promise(() => {})
+      }
+      const memoizedFn = memo(fn, {
+        cacheKey,
+        signalAccessors: {
+          get: ([{ signal }]) => signal,
+          set: (signal, args) => {
+            return [{ signal }] as typeof args
+          },
+        },
+      })
+      const controller1 = new AbortController()
+      const result1 = memoizedFn({ signal: controller1.signal })
+      const controller2 = new AbortController()
+      const result2 = memoizedFn({ signal: controller2.signal })
+      setTimeout(() => controller1.abort(), 0)
+      await expect(result1).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"aborted"`,
+      )
+      expect(handleAbort).not.toHaveBeenCalled()
+      expect(innerSignal.aborted).toEqual(false)
+      setTimeout(() => controller2.abort(), 0)
+      await expect(result2).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"aborted"`,
+      )
+      expect(innerSignal.aborted).toEqual(true)
+      expect(handleAbort).toHaveBeenCalled()
     })
   })
 })
