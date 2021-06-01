@@ -13,7 +13,7 @@ export interface OptsType<
   CacheKeyType = string
 > extends mem.Options<ArgumentsType, CacheKeyType, Promise<ResolveType>> {
   signalAccessors?: {
-    get: (args: ArgumentsType) => AbortSignal
+    get: (args: ArgumentsType) => AbortSignal | null | undefined
     set: (signal: AbortSignal, args: ArgumentsType) => ArgumentsType
   }
 }
