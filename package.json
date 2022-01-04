@@ -39,7 +39,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "composite-abort-controller": "^1.1.0",
+    "composite-abort-controller": "^1.1.1",
     "mem": "^6.1.0",
     "mimic-fn": "^3.0.0",
     "race-abort": "^2.0.0"
