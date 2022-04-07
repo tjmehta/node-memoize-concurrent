@@ -28,11 +28,11 @@ import memo from 'memoize-concurrent'
 
 const memoizedFetch = memo(fetch)
 
-const promise1 = memoizedAdd('http://localhost') // hits server
-const promise2 = memoizedAdd('http://localhost') // hits cache
+const promise1 = memoizedFetch('http://localhost') // hits server
+const promise2 = memoizedFetch('http://localhost') // hits cache
 console.log(promise1 === promise2) // true
 await promise1
-const promise3 = memoizedAdd('http://localhost') // hits server
+const promise3 = memoizedFetch('http://localhost') // hits server
 console.log(promise1 === promise3) // false
 ```
 
