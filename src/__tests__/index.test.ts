@@ -110,11 +110,13 @@ describe('memoizeConcurrent', () => {
         `"aborted"`,
       )
       expect(handleAbort).not.toHaveBeenCalled()
+      // @ts-ignore
       expect(innerSignal.aborted).toEqual(false)
       setTimeout(() => controller2.abort(), 0)
       await expect(result2).rejects.toThrowErrorMatchingInlineSnapshot(
         `"aborted"`,
       )
+      // @ts-ignore
       expect(innerSignal.aborted).toEqual(true)
       expect(handleAbort).toHaveBeenCalled()
     })
