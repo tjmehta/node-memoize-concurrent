@@ -49,9 +49,9 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "composite-abort-controller": "^3.0.0",
+    "composite-abort-controller": "^3.0.2",
     "mem": "^6.1.0",
     "mimic-fn": "^3.0.0",
-    "race-abort": "^2.0.0"
+    "race-abort": "^3.0.2"
   }
 }
