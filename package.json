@@ -47,6 +47,7 @@
     "fast-abort-controller": "^4.0.0",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
+    "rewrite-cjs-esm-paths": "^1.0.3",
     "typescript": "^3.9.3"
   },
   "dependencies": {
